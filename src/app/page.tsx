@@ -1,7 +1,6 @@
 import { Header } from '@/components/ui/header';
 import { Hero } from '@/components/ui/hero';
 import { FeaturedProperties } from '@/components/ui/featured-properties';
-import { Footer } from '@/components/ui/footer';
 
 export default function Home() {
   return (
@@ -11,7 +10,6 @@ export default function Home() {
         <Hero />
         <FeaturedProperties />
       </main>
-      <Footer />
     </div>
   );
 }

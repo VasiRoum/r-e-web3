@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { Button } from './button';
 import { Eye, MapPin, ArrowRight, Home, Wallet, Maximize } from 'lucide-react';
 import { useScrollAnimation } from '@/lib/hooks/useScrollAnimation';
+import { PropertyBackground } from '@/components/properties/property-background';
+import React from 'react';
 
 interface Property {
   id: string;
@@ -71,8 +73,10 @@ const FEATURED_PROPERTIES: Property[] = [
 ];
 
 function PropertyCard({ property }: { property: Property }) {
+  const [imageError, setImageError] = React.useState(false);
+
   return (
-    <div className="group relative overflow-hidden rounded-xl border bg-card hover-card-animation scroll-scale-in">
+    <div className="group relative overflow-hidden rounded-xl border border-border/50 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5 hover:scale-[1.02] scroll-scale-in">
       {/* Image Container */}
       <div className="aspect-[4/3] relative overflow-hidden">
         <div className="absolute inset-0 image-skeleton" />
@@ -82,6 +86,7 @@ function PropertyCard({ property }: { property: Property }) {
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-110"
           loading="lazy"
+          onError={() => setImageError(true)}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
         
@@ -149,36 +154,48 @@ export function FeaturedProperties() {
   useScrollAnimation();
 
   return (
-    <section className="py-24 bg-muted">
-      <div className="container">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12 scroll-fade-in">
-          <div className="max-w-2xl">
-            <div className="w-20 h-1 bg-primary mb-8 scroll-slide-left" />
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Featured Properties</h2>
-            <p className="text-muted-foreground text-base sm:text-lg">
-              Explore our handpicked selection of premium properties, each offering unique features and immersive virtual tours. All transactions are secured through Ethereum smart contracts.
-            </p>
+    <section className="relative">
+      {/* Three.js Background */}
+      <div className="fixed inset-0 -z-10">
+        <PropertyBackground />
+      </div>
+
+      <div className="relative z-10 py-24">
+        <div className="container">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-12 scroll-fade-in">
+            <div className="max-w-2xl">
+              <div className="w-20 h-1 bg-primary mb-8 scroll-slide-left" />
+              <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-foreground">Featured Properties</h2>
+              <p className="text-muted-foreground text-base sm:text-lg">
+                Explore our handpicked selection of premium properties, each offering unique features and immersive virtual tours. All transactions are secured through Ethereum smart contracts.
+              </p>
+            </div>
+            <Button variant="outline" asChild className="group w-full md:w-auto button-hover-effect scroll-slide-right bg-background/80 hover:bg-background/90 backdrop-blur-sm">
+              <Link href="/properties" className="flex items-center justify-center gap-2">
+                View All Properties
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Button>
           </div>
-          <Button variant="outline" asChild className="group w-full md:w-auto button-hover-effect scroll-slide-right">
-            <Link href="/properties" className="flex items-center justify-center gap-2">
-              View All Properties
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </Button>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 stagger-children">
-          {FEATURED_PROPERTIES.map((property) => (
-            <Link 
-              key={property.id} 
-              href={`/property/${property.id}`} 
-              className="block"
-            >
-              <PropertyCard property={property} />
-            </Link>
-          ))}
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 stagger-children">
+            {FEATURED_PROPERTIES.map((property) => (
+              <Link 
+                key={property.id} 
+                href={`/property/${property.id}`} 
+                className="block"
+              >
+                <div className="bg-background/80 backdrop-blur-sm rounded-xl transition-all duration-500 hover:bg-background/90">
+                  <PropertyCard property={property} />
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
+
+      {/* Gradient fade to background */}
+      <div className="fixed bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none" />
     </section>
   );
 } 
