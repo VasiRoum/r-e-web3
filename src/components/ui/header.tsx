@@ -3,12 +3,14 @@
 import Link from 'next/link';
 import { Search, Menu, Wallet } from 'lucide-react';
 import { Button } from './button';
-import { ThemeToggle } from './theme-toggle';
+import { ThemeSelect } from './theme-select';
 import { useState } from 'react';
+import { MobileMenu } from './mobile-menu';
 
 export function Header() {
   const [isWalletConnected, setIsWalletConnected] = useState(false);
   const [walletAddress, setWalletAddress] = useState('');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const connectWallet = async () => {
     if (typeof window.ethereum !== 'undefined') {
@@ -30,83 +32,99 @@ export function Header() {
   };
 
   return (
-    <header className="fixed top-0 z-50 w-full border-b bg-background/80 backdrop-blur-lg supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center gap-8">
-          <Link 
-            href="/" 
-            className="font-bold text-2xl bg-gradient-to-r from-primary to-primary/50 bg-clip-text text-transparent"
-          >
-            PropGoldenStar
-          </Link>
-          <nav className="hidden md:flex gap-6">
+    <>
+      <header className="fixed top-0 z-50 w-full border-b bg-background/80 backdrop-blur-lg supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-16 items-center justify-between">
+          <div className="flex items-center gap-8">
             <Link 
-              href="/properties" 
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+              href="/" 
+              className="font-bold text-2xl bg-gradient-to-r from-primary to-primary/50 bg-clip-text text-transparent"
             >
-              Properties
+              PropGoldenStar
             </Link>
-            <Link 
-              href="/virtual-tours" 
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-            >
-              Virtual Tours
-            </Link>
-            <Link 
-              href="/dashboard" 
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-            >
-              Dashboard
-            </Link>
-            <Link 
-              href="/support" 
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-            >
-              Support
-            </Link>
-          </nav>
-        </div>
-        
-        <div className="flex items-center gap-4">
-          <div className="relative hidden md:block">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Search className="h-4 w-4 text-muted-foreground" />
-            </div>
-            <input
-              type="search"
-              placeholder="Search properties..."
-              className="h-9 w-[250px] rounded-full border border-input bg-background/60 pl-10 pr-4 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-all duration-200 focus:w-[300px]"
-            />
+            <nav className="hidden md:flex gap-6" role="navigation" aria-label="Main navigation">
+              <Link 
+                href="/properties" 
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+              >
+                Properties
+              </Link>
+              <Link 
+                href="/virtual-tours" 
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+              >
+                Virtual Tours
+              </Link>
+              <Link 
+                href="/dashboard" 
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+              >
+                Dashboard
+              </Link>
+              <Link 
+                href="/support" 
+                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+              >
+                Support
+              </Link>
+            </nav>
           </div>
           
-          <div className="hidden md:flex items-center gap-2">
-            <ThemeToggle />
-            {isWalletConnected ? (
-              <Button variant="outline" className="gap-2">
-                <Wallet className="h-4 w-4" />
-                <span className="font-medium">{formatWalletAddress(walletAddress)}</span>
+          <div className="flex items-center gap-4">
+            <div className="relative hidden md:block">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Search className="h-4 w-4 text-muted-foreground" />
+              </div>
+              <input
+                type="search"
+                placeholder="Search properties..."
+                className="h-9 w-[250px] rounded-full border border-input bg-background/60 pl-10 pr-4 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 transition-all duration-200 focus:w-[300px]"
+              />
+            </div>
+            
+            <div className="hidden md:flex items-center gap-2">
+              <ThemeSelect />
+              {isWalletConnected ? (
+                <Button variant="outline" className="gap-2">
+                  <Wallet className="h-4 w-4" />
+                  <span className="font-medium">{formatWalletAddress(walletAddress)}</span>
+                </Button>
+              ) : (
+                <Button onClick={connectWallet} variant="outline" className="gap-2">
+                  <Wallet className="h-4 w-4" />
+                  Connect Wallet
+                </Button>
+              )}
+              <Button variant="ghost" asChild className="text-muted-foreground hover:text-foreground">
+                <Link href="/auth/login">Login</Link>
               </Button>
-            ) : (
-              <Button onClick={connectWallet} variant="outline" className="gap-2">
-                <Wallet className="h-4 w-4" />
-                Connect Wallet
+              <Button asChild className="bg-primary hover:bg-primary/90">
+                <Link href="/auth/signup">Sign Up</Link>
               </Button>
-            )}
-            <Button variant="ghost" asChild className="text-muted-foreground hover:text-foreground">
-              <Link href="/auth/login">Login</Link>
-            </Button>
-            <Button asChild className="bg-primary hover:bg-primary/90">
-              <Link href="/auth/signup">Sign Up</Link>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="md:hidden"
+              onClick={() => setIsMobileMenuOpen(true)}
+              aria-label="Open menu"
+            >
+              <Menu className="h-5 w-5" />
             </Button>
           </div>
-
-          {/* Mobile Menu Button */}
-          <Button variant="ghost" size="icon" className="md:hidden">
-            <Menu className="h-5 w-5" />
-            <span className="sr-only">Toggle menu</span>
-          </Button>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {/* Mobile Menu */}
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+        isWalletConnected={isWalletConnected}
+        walletAddress={walletAddress}
+        onConnectWallet={connectWallet}
+      />
+    </>
   );
 } 
