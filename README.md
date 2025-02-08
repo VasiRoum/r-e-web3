@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PropGoldenStar Web Application
+
+PropGoldenStar is a pioneering digital real estate platform that combines immersive AR/VR technologies with secure blockchain-based transactions. This repository contains the web application built with Next.js, Three.js, and Web3 technologies.
+
+## Tech Stack
+
+- **Frontend Framework:** Next.js with App Router
+- **Language:** TypeScript
+- **3D & AR/VR:**
+  - Three.js
+  - React Three Fiber
+  - A-Frame
+  - WebXR API
+- **Styling:**
+  - Tailwind CSS
+  - shadcn/ui components
+  - SASS
+- **Blockchain:**
+  - Web3.js
+  - Ethers.js
+
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router pages
+│   ├── auth/              # Authentication routes
+│   ├── dashboard/         # User dashboard routes
+│   └── property/          # Property listing and details routes
+├── components/            # React components
+│   ├── ui/               # UI components (buttons, forms, etc.)
+│   ├── 3d/               # Three.js and AR/VR components
+│   ├── property/         # Property-related components
+│   ├── auth/             # Authentication components
+│   └── dashboard/        # Dashboard components
+├── lib/                  # Utility functions and shared logic
+│   ├── blockchain/       # Blockchain integration
+│   ├── hooks/            # Custom React hooks
+│   └── utils/            # Helper functions
+├── types/                # TypeScript type definitions
+└── styles/               # Global styles and SASS files
+```
 
 ## Getting Started
 
-First, run the development server:
+1. **Prerequisites**
+   - Bun.js (latest version)
+   - Node.js 18+ (for some dependencies)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Installation**
+   ```bash
+   # Clone the repository
+   git clone [repository-url]
+   cd [repository-name]
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   # Install dependencies
+   bun install
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+   # Start the development server
+   bun dev
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Environment Setup**
+   Create a `.env.local` file in the root directory with the following variables:
+   ```
+   NEXT_PUBLIC_WEB3_PROVIDER=
+   NEXT_PUBLIC_CONTRACT_ADDRESS=
+   ```
 
-## Learn More
+## Development Guidelines
 
-To learn more about Next.js, take a look at the following resources:
+- Follow TypeScript best practices
+- Use functional components with hooks
+- Implement proper error handling
+- Write clean, maintainable code
+- Follow the project's component structure
+- Use shadcn/ui components for consistent UI
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Immersive AR/VR property tours
+- Secure blockchain-based transactions
+- User authentication and authorization
+- Property listing and management
+- Interactive 3D visualization
+- Responsive design for all devices
 
-## Deploy on Vercel
+## Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a new Pull Request
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+[License Type] - see LICENSE.md for details 
