@@ -1,97 +1,53 @@
 # PropGoldenStar Web Application
 
-PropGoldenStar is a pioneering digital real estate platform that combines immersive AR/VR technologies with secure blockchain-based transactions. This repository contains the web application built with Next.js, Three.js, and Web3 technologies.
+A modern real estate platform combining immersive property tours with secure blockchain transactions.
+
+## Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/VasiRoum/r-e-web3.git
+cd r-e-web3
+
+# Install dependencies
+bun install
+
+# Start the development server
+bun dev
+```
+
+Visit `http://localhost:3000` to see the application.
+
+## Prerequisites
+
+- [Bun.js](https://bun.sh) (latest version)
+- [Node.js](https://nodejs.org) 18+ (for some dependencies)
+- [MetaMask](https://metamask.io) browser extension for ETH transactions
+
+## Environment Setup
+
+Create a `.env.local` file in the root directory:
+```
+NEXT_PUBLIC_WEB3_PROVIDER=
+NEXT_PUBLIC_CONTRACT_ADDRESS=
+```
 
 ## Tech Stack
 
-- **Frontend Framework:** Next.js with App Router
-- **Language:** TypeScript
-- **3D & AR/VR:**
-  - Three.js
-  - React Three Fiber
-  - A-Frame
-  - WebXR API
-- **Styling:**
-  - Tailwind CSS
-  - shadcn/ui components
-  - SASS
-- **Blockchain:**
-  - Web3.js
-  - Ethers.js
-
-## Project Structure
-
-```
-src/
-├── app/                    # Next.js App Router pages
-│   ├── auth/              # Authentication routes
-│   ├── dashboard/         # User dashboard routes
-│   └── property/          # Property listing and details routes
-├── components/            # React components
-│   ├── ui/               # UI components (buttons, forms, etc.)
-│   ├── 3d/               # Three.js and AR/VR components
-│   ├── property/         # Property-related components
-│   ├── auth/             # Authentication components
-│   └── dashboard/        # Dashboard components
-├── lib/                  # Utility functions and shared logic
-│   ├── blockchain/       # Blockchain integration
-│   ├── hooks/            # Custom React hooks
-│   └── utils/            # Helper functions
-├── types/                # TypeScript type definitions
-└── styles/               # Global styles and SASS files
-```
-
-## Getting Started
-
-1. **Prerequisites**
-   - Bun.js (latest version)
-   - Node.js 18+ (for some dependencies)
-
-2. **Installation**
-   ```bash
-   # Clone the repository
-   git clone [repository-url]
-   cd [repository-name]
-
-   # Install dependencies
-   bun install
-
-   # Start the development server
-   bun dev
-   ```
-
-3. **Environment Setup**
-   Create a `.env.local` file in the root directory with the following variables:
-   ```
-   NEXT_PUBLIC_WEB3_PROVIDER=
-   NEXT_PUBLIC_CONTRACT_ADDRESS=
-   ```
-
-## Development Guidelines
-
-- Follow TypeScript best practices
-- Use functional components with hooks
-- Implement proper error handling
-- Write clean, maintainable code
-- Follow the project's component structure
-- Use shadcn/ui components for consistent UI
+- Next.js with App Router
+- TypeScript
+- Three.js & WebXR for 3D/AR/VR
+- Tailwind CSS & shadcn/ui
+- Web3.js & Ethers.js for blockchain integration
 
 ## Features
 
 - Immersive AR/VR property tours
-- Secure blockchain-based transactions
-- User authentication and authorization
+- Secure ETH transactions
+- User authentication
 - Property listing and management
 - Interactive 3D visualization
-- Responsive design for all devices
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
+- Responsive design
 
 ## License
 
